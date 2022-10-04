@@ -46,4 +46,25 @@ describe Application do
     end
   end
 
+  #03 Exercise
+   context "GET /names" do
+      it 'Returns a list of names and status 200 OK' do
+        # Assuming the post with id 1 exists.
+        response = get('/names')
+
+        expect(response.status).to eq(200)
+        expect(response.body).to eq("Julia, Mary, Karim")
+      end
+   end
+
+  #03 Challenge
+  context "POST /sort-names" do
+    it 'Returns a list of alphabetically sorted names and status 200 OK' do
+      response = post('/sort-names?names=Joe,Alice,Zoe,Julia,Kieran')
+
+      expect(response.status).to be(200)
+      expect(response.body).to eq("Alice,Joe,Julia,Kieran,Zoe")
+    end
+  end
+
 end

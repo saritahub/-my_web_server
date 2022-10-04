@@ -1,4 +1,4 @@
-# GET /names Route Design Recipe
+# POST /sort-names Route Design Recipe
 
 _Copy this design recipe template to test-drive a Sinatra route._
 
@@ -10,10 +10,10 @@ You'll need to include:
 * any query parameters (passed in the URL)
 * or body parameters (passed in the request body)
 
-Return a list of names 
-- **Method**: GET
-- **Path**: /name
-- **Query** parameters: name(string)
+Return a list of alphabetically sorted names
+- **Method**: POST
+- **Path**: /sort-names
+- **Query** parameters: names(string)
 
 ## 2. Design the Response
 
@@ -32,8 +32,8 @@ _Replace the below with your own design. Think of all the different possible res
 <html>
   <head></head>
   <body>
-    <h1>Name title</h1>
-    <div>Name content</div>
+    <h1>Names title</h1>
+    <div>Names content</div>
   </body>
 </html>
 ```
@@ -46,7 +46,7 @@ _Replace the below with your own design. Think of all the different possible res
   <head></head>
   <body>
     <h1>Sorry!</h1>
-    <div>That name doesn't exist!</div>
+    <div>Couldn't process your request</div>
   </body>
 </html>
 ```
@@ -58,23 +58,17 @@ _Replace these with your own design._
 ```
 # Request:
 
-GET /names
+POST /sort-names?
+body: 
+KEY: names
+VALUE: Joe,Alice,Zoe,Julia,Kieran 
 
 # Expected response:
-'Julia, Mary, Karim'
+Alice,Joe,Julia,Kieran,Zoe
 
 Response for 200 OK
 ```
 
-```
-# Request:
-
-GET /posts?id=276278
-
-# Expected response:
-
-Response for 404 Not Found
-```
 
 ## 4. Encode as Tests Examples
 
@@ -89,15 +83,14 @@ describe Application do
 
   let(:app) { Application.new }
 
-  context "GET /names" do
-    it 'Returns a list of names and status 200 OK' do
-      response = get('/names')
+  context "POST /sort-names" do
+    it 'Returns a list of alphabetically sorted names and status 200 OK' do
+      response = post('/sort-names?names=Joe,Alice,Zoe,Julia,Kieran')
 
       expect(response.status).to eq(200)
-      expect(response.body).to eq("Julia, Mary, Karim")
+      expect(response.body).to eq("Alice,Joe,Julia,Kieran,Zoe")
     end
-  end 
-  
+  end
 end
 ```
 

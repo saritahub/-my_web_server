@@ -50,12 +50,16 @@ class Application < Sinatra::Base
 
     return "Thanks #{name} you have sent message: #{message}"
   end
+
+  #03 Exercise
+  get '/names' do
+     "Julia, Mary, Karim"
+  end
+
+  #03 Challenge
+  post '/sort-names' do
+    names = params[:names]
+
+    return "#{names.split(",").sort.join(",")}"
+  end
 end
-
-#Routing table - contains all routes (made in Application class)
-
-#GET / -> Execute some code
-#
-# GET /todos/1 -> Execute different code
-#
-# POST /todos -> Executes different code
